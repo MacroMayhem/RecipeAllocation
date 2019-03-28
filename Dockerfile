@@ -7,3 +7,5 @@ ENV PATH /opt/conda/envs/env/bin:$PATH
 WORKDIR /home/recipe_allocation/
 
 COPY . .
+
+CMD ["python", "main.py","-p", "./data/","-o","orders.json","-s","stock.json"]
