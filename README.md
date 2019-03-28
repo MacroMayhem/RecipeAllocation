@@ -43,7 +43,7 @@ Firstly, navigate to the `$ROOT` of the project. The project structre at `$ROOT`
 
 Execute the command
 
-`docker built -t recipe_allocation .`
+`docker build -t recipe_allocation .`
 
 This builds the image. Next, we need to run the image inside the container by
 
