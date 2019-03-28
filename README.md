@@ -36,25 +36,27 @@ Greedy Allocation: Utilizes the recipes for which the stock is maximum. The deta
     └── README.md
   
 ### How To Run
-In order to the project. We need to set up the docker which ensures the consistency of the project across platforms. After the docker is set up we utilize `python` to run the `main.py`
+We provide *2* ways to run the algorithm. First one uses **Docker** and the second one requires **python** installation. 
 
-##### Setting up the docker
+##### [DOCKER]
 Firstly, navigate to the `$ROOT` of the project. The project structre at `$ROOT` is displayed [above](#project-structure)
 
-Execute the command
+Execute the command to build the image
 
 `docker build -t recipe_allocation .`
 
-This builds the image. Next, we need to run the image inside the container by
+Next, we need to run the image inside the container by
 
 `docker run -it recipe_allocation`
 
-This will start a container and execute the image. The miniconda3 enivronment will change from `base` to `env` with python3.6 installed.
-We are ready to execute the project.
-##### Executing the application
+**Return** True or False depending if the constraints were met or not
 
-Make sure the `JSON` files are placed in the `data` folder
+In order to run on different jsons one can either edit the `CMD` fields in the dockerfile appropriately 
+`CMD ["python", "main.py","-p", "./data/","-o","orders.json","-s","stock.json"]`  
+or can replace the `stock.json` and `orders.json` in the `$ROOT/data/` folder
 
+##### [STAND-ALONE EXECUTION]Executing the application 
+If the user has a working python3 installation. One can easily execute the script
 **execution**
 
 `python main.py -p ./data/ -o orders.json -s stock.json`
