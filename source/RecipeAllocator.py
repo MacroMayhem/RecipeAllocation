@@ -8,13 +8,11 @@ logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 class RecipeAllocator:
-    def __init__(self,path_to_data='../data/',orders_file='orders.json',stock_file='stock.json'):
-        self.__path_to_orders = os.path.join(path_to_data, orders_file)
-        self.__path_to_stock = os.path.join(path_to_data, stock_file)
+    def __init__(self,orders_data=None, stock_data=None):
         self.__stocks = None
         self.__orders = None
-        self.__load_stock()
-        self.__load_orders()
+        self.__load_stock(stock_data)
+        self.__load_orders(orders_data)
 
 
     @property
@@ -26,10 +24,8 @@ class RecipeAllocator:
         return self.__orders
 
 
-    def __load_stock(self):
+    def __load_stock(self, json_data):
         self.__stocks = []
-        with open(self.__path_to_stock) as f:
-            json_data = json.load(f)
         for recipe, stock_count in json_data.items():
             try:
                 self.__stocks.append(StockItem(name=recipe, portions=stock_count['stock_count']))
@@ -39,10 +35,8 @@ class RecipeAllocator:
 
 
 
-    def __load_orders(self):
+    def __load_orders(self, json_data):
         self.__orders = []
-        with open(self.__path_to_orders) as f:
-            json_data = json.load(f)
         for number_of_recipes, order_portions in json_data.items():
             for portion_name, portion_number in order_portions.items():
                 try:

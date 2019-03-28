@@ -1,20 +1,24 @@
 from source.RecipeAllocator import RecipeAllocator
-import argparse
-
+from flask import Flask
+import flask
+app = Flask(__name__)
+from flask import request
+import json
 
 __author__ = "Aditya Singh"
 __version__ = "0.1.0"
 
-
-def main(args):
-    recipieAllocator = RecipeAllocator(path_to_data=args.path,orders_file=args.orders,stock_file=args.stocks)
-    print(recipieAllocator.compute())
+@app.route("/allocate",methods =['GET'])
+def allocate():
+    try:
+        query = request.get_json()
+        recipieAllocator = RecipeAllocator(orders_data=query['orders'],stock_data=query['stock'])
+    except:
+        return ('Possibly invalid request! Parsing Failure')
+    try:
+        return json.dumps(recipieAllocator.compute())
+    except Exception as e:
+        return ('Error in computing the allocation',e)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Executes the application with defaults if no parameters are passed')
-    parser.add_argument("-p", "--path", default='./data/', help='path to the data folder')
-    parser.add_argument("-o", "--orders", default='orders.json', help='JSON file with orders')
-    parser.add_argument("-s", "--stocks", default='stock.json', help='JSON file with stock info')
-
-    args = parser.parse_args()
-    main(args)
+    app.run(port=9090,debug=True)
