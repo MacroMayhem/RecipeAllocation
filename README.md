@@ -22,7 +22,7 @@ Greedy Allocation: Utilizes the recipes for which the stock is maximum. The deta
 4. We reduce the count of each of the `k` recipes by the number of portions required for the order and push it back in the queue
 5. We reduce the order count by 1 and place it back in the order queue
 
-**Time Complexity** `O(nlog(a)+nlog(b)), where n is the number of orders, a is the different recipes in stock, b is the different types of orders`
+**Time Complexity** `O(nlog(a)+nlog(b)), where n is the number of orders, a is the number of unique recipes in stock, b is the different combinations of portions and recipes`
 
 **Note** it is possible to bring the complexity down to `O(nlog(a))` by using a sorted list instead of a priority queue for orders. However, it is left as future work as the value of `b` is very small.
  
